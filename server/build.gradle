@@ -50,6 +50,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:5.1.5.Final'
     compile 'org.grails.plugins:views-json'
     compile 'org.grails.plugins:views-json-templates'
+    compile 'org.grails.plugins:external-config:1.1.2'
 
     console 'org.grails:grails-console'
 
