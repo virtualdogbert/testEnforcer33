@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.security.enforcer
+package services.com.security.enforcer
 
 import com.security.Sprocket
 import com.security.User
@@ -28,7 +28,7 @@ import spock.lang.Specification
 
 @Integration
 @Transactional
-class EnforcerTestTServiceSpec extends Specification {
+class EnforcerTestTIntegrationServiceSpec extends Specification {
     EnforcerTestTService enforcerTestTService
 
     def setup() {
