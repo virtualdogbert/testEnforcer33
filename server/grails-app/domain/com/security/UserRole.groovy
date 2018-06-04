@@ -1,4 +1,4 @@
-package com.virtualdogbert
+package com.security
 
 import grails.gorm.DetachedCriteria
 import groovy.transform.ToString

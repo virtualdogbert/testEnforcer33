@@ -19,9 +19,8 @@
 
 package com.security.enforcer
 
-import com.virtualdogbert.User
+import com.security.User
 import grails.plugin.springsecurity.SpringSecurityUtils
-
 
 /**
  *  This trait is for the EnforcerService, extending it's capability to enforcing user roles, without the verbosity of calling a service.
@@ -29,7 +28,9 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 trait RoleTrait {
 
     /**
-     * This method check to see if a user had a given role
+     * This method check to see if a user had a given role.
+     *
+     * If you are using role Groups you'll want to change this method to refect that.
      *
      * @param role the role/authority to check
      * @param user the user to check to see if it has a role(defaulted to springSecurityService.currentUser)

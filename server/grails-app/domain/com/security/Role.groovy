@@ -1,4 +1,4 @@
-package com.virtualdogbert
+package com.security
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString

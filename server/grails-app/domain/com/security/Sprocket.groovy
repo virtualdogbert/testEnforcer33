@@ -1,6 +1,5 @@
 package com.security
 
-import com.virtualdogbert.User
 
 /**
  * Created with IntelliJ IDEA.

@@ -20,7 +20,7 @@
 package com.security.enforcer
 
 import com.security.Sprocket
-import com.virtualdogbert.User
+import com.security.User
 
 /**
  * This trait is for the EnforcerService, extending it's capability to enforcing domain roles, without the verbosity of calling a service.

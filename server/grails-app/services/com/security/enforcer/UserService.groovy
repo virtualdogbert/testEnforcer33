@@ -19,22 +19,24 @@
 
 package com.security.enforcer
 
+import com.security.Role
+import com.security.User
+import com.security.UserRole
+import grails.gorm.transactions.Transactional
 
-import com.security.Sprocket
-import com.virtualdogbert.ast.Enforce
-import grails.transaction.Transactional
-import groovy.transform.CompileStatic
+class UserService {
 
+    @Transactional
+    void initUsers() {
+        Role userRole = new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
+        Role adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
 
-/**
- * The EnforcerService has one enforce method for enforcing business rules, and is extended by the traits it implements.
- */
-@Transactional
-@CompileStatic
-class TestService implements RoleTrait, DomainRoleTrait, CreatorTrait {
+        User testUser = new User(username: 'me', password: 'password').save(flush: true, failOnError: true)
+        User testUser2 = new User(username: 'me2', password: 'password').save(flush: true, failOnError: true)
 
-    @Enforce({isCreator(sp)})
-    Sprocket getSprocket(Sprocket sp) {
-        return sp
+        UserRole.create testUser, adminRole, true
+        UserRole.create testUser, userRole, true
+
+        UserRole.create testUser2, userRole, true
     }
 }

@@ -1,8 +1,10 @@
 grails {
     profile = 'angular'
+
     codegen {
-        defaultPackage = 'testenforcer33'
+        defaultPackage = 'com.security'
     }
+
     gorm {
         reactor {
             events = false
@@ -19,9 +21,11 @@ info {
 }
 
 spring {
+
     main {
         main['banner-mode'] = 'off'
     }
+
     groovy {
         template {
             template['check-template-location'] = false
@@ -38,8 +42,11 @@ endpoints {
 
 grails {
     mime {
+
         disable {
+
             accept {
+
                 header {
                     userAgents = [
                             'Gecko',
@@ -50,6 +57,7 @@ grails {
                 }
             }
         }
+
         types {
             json = [
                     'application/json',
@@ -72,14 +80,17 @@ grails {
             all = '*/*'
         }
     }
+
     urlmapping {
         cache {
             maxsize = 1000
         }
     }
+
     controllers {
         defaultScope = 'singleton'
     }
+
     converters {
         encoding = 'UTF-8'
     }
@@ -108,18 +119,21 @@ dataSource {
 }
 
 environments {
+
     development {
         dataSource {
             dbCreate = 'create-drop'
             url = 'jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
         }
     }
+
     test {
         dataSource {
             dbCreate = 'update'
             url = 'jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
         }
     }
+
     production {
         dataSource {
             dbCreate = 'none'
@@ -147,33 +161,30 @@ environments {
     }
 }
 
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.virtualdogbert.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.virtualdogbert.UserRole'
-grails.plugin.springsecurity.authority.className = 'com.virtualdogbert.Role'
-grails.plugin.springsecurity.authority.groupAuthorityNameField = 'authorities'
-grails.plugin.springsecurity.useRoleGroups = true
 
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.security.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.security.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.security.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-        [pattern: '/', access: ['permitAll']],
-        [pattern: '/error', access: ['permitAll']],
-        [pattern: '/index', access: ['permitAll']],
-        [pattern: '/index.gsp', access: ['permitAll']],
-        [pattern: '/index.gson', access: ['permitAll']],
-        [pattern: '/shutdown', access: ['permitAll']],
-        [pattern: '/assets/**', access: ['permitAll']],
-        [pattern: '/**/js/**', access: ['permitAll']],
-        [pattern: '/**/css/**', access: ['permitAll']],
-        [pattern: '/**/images/**', access: ['permitAll']],
-        [pattern: '/**/favicon.ico', access: ['permitAll']]
+	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/error',          access: ['permitAll']],
+	[pattern: '/index',          access: ['permitAll']],
+	[pattern: '/index.gsp',      access: ['permitAll']],
+	[pattern: '/shutdown',       access: ['permitAll']],
+	[pattern: '/assets/**',      access: ['permitAll']],
+	[pattern: '/**/js/**',       access: ['permitAll']],
+	[pattern: '/**/css/**',      access: ['permitAll']],
+	[pattern: '/**/images/**',   access: ['permitAll']],
+	[pattern: '/**/favicon.ico', access: ['permitAll']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
-        [pattern: '/assets/**', filters: 'none'],
-        [pattern: '/**/js/**', filters: 'none'],
-        [pattern: '/**/css/**', filters: 'none'],
-        [pattern: '/**/images/**', filters: 'none'],
-        [pattern: '/**/favicon.ico', filters: 'none'],
-        [pattern: '/**', filters: 'JOINED_FILTERS']
+	[pattern: '/assets/**',      filters: 'none'],
+	[pattern: '/**/js/**',       filters: 'none'],
+	[pattern: '/**/css/**',      filters: 'none'],
+	[pattern: '/**/images/**',   filters: 'none'],
+	[pattern: '/**/favicon.ico', filters: 'none'],
+	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 

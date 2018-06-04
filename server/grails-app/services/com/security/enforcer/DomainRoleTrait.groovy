@@ -19,7 +19,9 @@
 
 package com.security.enforcer
 
-import com.virtualdogbert.User
+import com.security.User
+
+
 /**
  * This trait is for the EnforcerService, extending it's capability to enforcing domain roles, without the verbosity of calling a service.
  */
@@ -78,16 +80,16 @@ trait DomainRoleTrait {
      * @param domainObject the domain object to set a role for
      * @param user the user to set the DomainRole for defaulting to springSecurityService.currentUser
      */
-    //@Enforce({ hasDomainRole('owner', domainObject) || isCreator(domainObject) || hasRole('ROLE_ADMIN') })
     void changeDomainRole(String role, domainObject, User user = null) {
         enforce { hasDomainRole('owner', domainObject) || isCreator(domainObject) || hasRole('ROLE_ADMIN') }
+
         if (!user) {
             user = springSecurityService.currentUser
         }
 
         String domainName =  domainObject.getClass().name
 
-        DomainRole domainRole = DomainRole.findByRoleAndDomainNameAndDomainIdAndUser(role, domainName, domainObject.id, user)
+        DomainRole domainRole = DomainRole.findWhere(role:  role, domainName: domainName, domainId:  domainObject.id, user: user)
 
         if (domainRole) {
             domainRole.role = role
@@ -104,16 +106,16 @@ trait DomainRoleTrait {
      * @param domainObject the domainObject to remove the role from
      * @param user the use for which the role is being removed.
      */
-    //@Enforce({ hasDomainRole('owner', domainObject) || hasRole('ROLE_ADMIN') })
     void removeDomainRole(domainObject, User user = null) {
         enforce { hasDomainRole('owner', domainObject) || hasRole('ROLE_ADMIN') }
+
         if (!user) {
             user = springSecurityService.currentUser
         }
 
         String domainName =  domainObject.getClass().name
 
-        DomainRole domainRole = DomainRole.findByRoleAndDomainNameAndDomainIdAndUser(role, domainName, domainObject.id, user)
+        DomainRole domainRole = DomainRole.findWhere(domainName: domainName, domainId:  domainObject.id, user: user)
 
         domainRole?.delete()
     }

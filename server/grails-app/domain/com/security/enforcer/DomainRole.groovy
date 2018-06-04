@@ -18,7 +18,7 @@
  */
 package com.security.enforcer
 
-import com.virtualdogbert.User
+import com.security.User
 
 /**
  * This is for adding roles at an object level for business rules

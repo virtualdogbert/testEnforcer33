@@ -16,34 +16,27 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package com.enforcer
+package com.security.enforcer
 
+import com.security.Role
 import com.security.Sprocket
+import com.security.User
+import com.security.UserRole
 import com.security.enforcer.DomainRole
-import com.security.enforcer.EnforcerService
-import com.virtualdogbert.Role
-import com.virtualdogbert.RoleGroup
-import com.virtualdogbert.User
-import com.virtualdogbert.UserRole
-import com.virtualdogbert.UserRoleGroup
-import com.virtualdogbert.ast.EnforcerException
+import com.security.enforcer.EnforcerException
+import com.security.enforcer.InstalledEnforcerService
 import grails.plugin.springsecurity.SpringSecurityService
-import grails.test.mixin.Mock
-import grails.test.mixin.TestFor
-import grails.util.Holders
+import grails.testing.gorm.DataTest
+import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 
-/**
- * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
- */
-
-@Mock([Role, User, UserRole, RoleGroup, UserRoleGroup, DomainRole, Sprocket])
-@TestFor(EnforcerService)
-class EnforcerServiceSpec extends Specification {
+class EnforcerServiceSpec extends Specification implements ServiceUnitTest<InstalledEnforcerService>, DataTest {
 
     User testUser, testUser2
 
     def setup() {
+        mockDomains Role, User, UserRole, DomainRole, Sprocket //Comment in or replace with your own domain to test
+
         def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
         def userRole = new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
         testUser = new User(username: 'me', password: 'password').save(flush: true, failOnError: true)
@@ -56,13 +49,8 @@ class EnforcerServiceSpec extends Specification {
 
         service.springSecurityService = [getCurrentUser: { -> testUser }] as SpringSecurityService
 
-        grailsApplication.config.enforcer.enabled = true
-        //This enables Enforcer for unit tests because it is turned off by default.
+        grailsApplication.config.enforcer.enabled = true//This enables Enforcer for unit tests because it is turned off by default.
         service.grailsApplication = grailsApplication
-
-        if(!Holders.grailsApplication.mainContext.containsBean("enforcerService")) {
-            Holders.grailsApplication.mainContext.beanFactory.registerSingleton("enforcerService", service)
-        }
     }
 
     //Testing EnforcerService
@@ -109,7 +97,7 @@ class EnforcerServiceSpec extends Specification {
             thrown EnforcerException
     }
 
-
+    //For these tests you'll have to sub out the Sprocket domain for one that is in your application and add it to the @Mock
     //Testing DomainRoleTrait
     void 'test enforce hasDomainRole("owner", domainObject, testUser)'() {
         when:
@@ -118,6 +106,16 @@ class EnforcerServiceSpec extends Specification {
             service.enforce({ hasDomainRole('owner', sprocket, testUser) })
         then:
             true
+    }
+
+    void 'test enforce hasDomainRole("owner", domainObject, testUser) with domain role removed'() {
+        when:
+            Sprocket sprocket = new Sprocket(material: 'metal', creator: testUser).save(failOnError: true)
+            service.changeDomainRole('owner', sprocket, testUser)
+            service.removeDomainRole(sprocket, testUser)
+            service.enforce({ hasDomainRole('owner', sprocket, testUser) })
+        then:
+            thrown EnforcerException
     }
 
     void 'test fail enforce hasDomainRole("owner",domainObject, testUser)'() {

@@ -1,4 +1,4 @@
-package com.virtualdogbert
+package com.security
 
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
@@ -19,16 +19,7 @@ class User implements Serializable {
     boolean passwordExpired
 
     Set<Role> getAuthorities() {
-        Set<Role> roles = (Set<Role>)[]
-        Set<RoleGroup> groups = (UserRoleGroup.findAllByUser(this) as List<UserRoleGroup>)*.roleGroup as Set<RoleGroup>
-
-        groups.each {RoleGroup group ->
-            roles.addAll(group.authorities)
-        }
-
-        roles.addAll(((List<UserRole>)UserRole.findAllByUser(this))*.role)
-
-        return roles
+        (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
     }
 
     static constraints = {
