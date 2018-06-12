@@ -1,3 +1,5 @@
+server.session.timeout = 3600 //seconds
+
 grails {
     profile = 'angular'
 
