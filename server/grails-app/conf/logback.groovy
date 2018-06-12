@@ -33,4 +33,10 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
 }
+
+logger("grails.app.jobs", INFO, ['STDOUT'])
+logger 'grails.app.controllers', INFO, ['STDOUT']
+logger 'grails.app.services', INFO, ['STDOUT']
+logger 'testenforcer33.SecurityInterceptor', INFO, ['STDOUT'], false
+
 root(ERROR, ['STDOUT'])
