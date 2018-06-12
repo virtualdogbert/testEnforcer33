@@ -76,4 +76,10 @@ bootRun {
     addResources = true
     String springProfilesActive = 'spring.profiles.active'
     systemProperty springProfilesActive, System.getProperty(springProfilesActive)
+
+    systemProperty 'server.port', '8443'
+    systemProperty 'server.ssl.enabled', 'true'
+    systemProperty 'server.ssl.key-store', './localkeystore'
+    systemProperty 'server.ssl.key-store-password', 'secure'
+    systemProperty 'server.ssl.key-password', 'secure'
 }
