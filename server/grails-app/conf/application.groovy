@@ -163,6 +163,12 @@ environments {
     }
 }
 
+grails.plugin.springsecurity.mfa.filterProcessesUrl = 'mfa'
+grails.plugin.springsecurity.providerNames = [
+        'mfaAuthenticationProvider',
+        'daoAuthenticationProvider',
+        'anonymousAuthenticationProvider'
+]
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.security.User'
