@@ -30,11 +30,13 @@ class UserService {
     void initUsers() {
         Role userRole = new Role(authority: 'ROLE_USER').save(flush: true, failOnError: true)
         Role adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true, failOnError: true)
+        Role actuator = new Role(authority: 'ROLE_ACTUATOR').save(flush: true, failOnError: true)
 
         User testUser = new User(username: 'me', password: 'password').save(flush: true, failOnError: true)
         User testUser2 = new User(username: 'me2', password: 'password').save(flush: true, failOnError: true)
 
         UserRole.create testUser, adminRole, true
+        UserRole.create testUser, actuator, true
         UserRole.create testUser, userRole, true
 
         UserRole.create testUser2, userRole, true

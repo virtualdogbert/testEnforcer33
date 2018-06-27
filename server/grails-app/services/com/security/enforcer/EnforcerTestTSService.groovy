@@ -33,8 +33,6 @@ class EnforcerTestTSService {
 
     @Transactional
     Sprocket createSprocket() {
-        springSecurityService.currentUser
-
         Sprocket sprocket = new Sprocket(
                 material: 'metal',
                 creator: springSecurityService.currentUser
@@ -45,8 +43,6 @@ class EnforcerTestTSService {
 
 
     Sprocket createSprocketException() {
-        springSecurityService.currentUser
-
         Sprocket sprocket = new Sprocket(
                 material: 'metal',
                 creator: springSecurityService.currentUser

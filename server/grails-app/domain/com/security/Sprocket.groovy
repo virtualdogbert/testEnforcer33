@@ -11,4 +11,9 @@ package com.security
 class Sprocket {
     String material
     User   creator
+    String manufacturer
+
+    static constraints = {
+        manufacturer nullable:true
+    }
 }

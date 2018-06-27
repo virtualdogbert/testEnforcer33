@@ -1,0 +1,27 @@
+import test.command.company.CompanyCommand
+import test.command.company.DivisionsCommand
+import test.command.company.EmployeesCommand
+
+model {
+    CompanyCommand company
+    String name
+}
+
+json {
+    name company.name
+    description company.description
+
+    tags(company.tags) { String tag ->
+        name tag
+    }
+
+    divisions(company.divisions) { DivisionsCommand division ->
+        name division.name
+        departmentCode division.departmentCodes
+    }
+
+    employees(company.employees) { EmployeesCommand employee ->
+        name employee.name
+        address employee.address
+
+}   }
