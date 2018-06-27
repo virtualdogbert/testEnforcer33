@@ -10,7 +10,7 @@ class BootStrap {
 
     def init    = { servletContext ->
         SpringSecurityUtils.clientRegisterFilter('mfaAuthenticationFilter', SecurityFilterPosition.FORM_LOGIN_FILTER.order - 50)
-        SpringSecurityUtils.clientRegisterFilter('csrfFilter', SecurityFilterPosition.LAST.order - 100)
+        //SpringSecurityUtils.clientRegisterFilter('csrfFilter', SecurityFilterPosition.LAST.order - 100)
         userService.initUsers()
     }
     def destroy = {

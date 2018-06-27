@@ -23,7 +23,9 @@ class RequireCsrfProtectionMatcher implements RequestMatcher {
                 'user',
                 'role',
                 'securityInfo',
-                'registrationCode']
+                'registrationCode',
+                'csrf'
+        ]
 
         for (String uri : ignoreUris) {
             if (request.requestURI.contains(uri)) {
