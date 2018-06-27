@@ -12,6 +12,14 @@ grails {
             events = false
         }
     }
+
+
+    controllers {
+        upload {
+            maxFileSize = 2000000
+            maxRequestSize = 2000000
+        }
+    }
 }
 
 info {
@@ -189,10 +197,11 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/**/css/**', access: ['permitAll']],
         [pattern: '/**/images/**', access: ['permitAll']],
         [pattern: '/**/favicon.ico', access: ['permitAll']],
+        [pattern: '/admin/**', access: ['ROLE_ADMIN']],
         [pattern: '/user/**', access: ['ROLE_ADMIN']],
         [pattern: '/role/**', access: ['ROLE_ADMIN']],
         [pattern: '/securityInfo/**', access: ['ROLE_ADMIN']],
-        [pattern: '/registrationCode/**', access: ['ROLE_ADMIN']]
+        [pattern: '/registrationCode/**', access: ['ROLE_ADMIN']],
         [pattern: '/auditevents/**', access: ['ROLE_ADMIN']],
         [pattern: '/beans/**', access: ['ROLE_ADMIN']],
         [pattern: '/configprops/**', access: ['ROLE_ADMIN']],
@@ -214,6 +223,8 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         [pattern: '/**', filters: 'JOINED_FILTERS']
 ]
 
+command.response.return = false
+
 //def configFIlePath = System.getenv('ENCRYPTION_CONFIG_LOCATION') ?: "file:${userHome}/.grails/.jasypt"
 //grails.config.locations = [configFIlePath]
 
@@ -223,3 +234,22 @@ jasypt {
     password = "<your very secret passphrase>"
     keyObtentionIterations = 1000
 }
+
+grails.plugin.springsecurity.rest.token.storage.jwt.secret ='qrD6h8K6S9503Q06Y6Rfk21TErImPYqa'
+
+grails.plugin.springsecurity.rest.token.storage.jwt.expiration = 3600
+grails.plugin.springsecurity.rest.logout.endpointUrl = '/api/logout'
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+        //Stateless chain
+        [
+                pattern: '/api/**',
+                filters: 'JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter'
+        ],
+
+        //Traditional, stateful chain
+        [
+                pattern: '/**',
+                filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter'
+        ]
+]
