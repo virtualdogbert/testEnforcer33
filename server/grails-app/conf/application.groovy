@@ -202,3 +202,12 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         [pattern: '/**', filters: 'JOINED_FILTERS']
 ]
 
+//def configFIlePath = System.getenv('ENCRYPTION_CONFIG_LOCATION') ?: "file:${userHome}/.grails/.jasypt"
+//grails.config.locations = [configFIlePath]
+
+jasypt {
+    algorithm = "PBEWITHSHA256AND256BITAES-CBC-BC"
+    providerName = "BC"
+    password = "<your very secret passphrase>"
+    keyObtentionIterations = 1000
+}
