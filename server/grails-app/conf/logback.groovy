@@ -37,6 +37,6 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
 logger("grails.app.jobs", INFO, ['STDOUT'])
 logger 'grails.app.controllers', INFO, ['STDOUT']
 logger 'grails.app.services', INFO, ['STDOUT']
-logger 'testenforcer33.SecurityInterceptor', INFO, ['STDOUT'], false
+logger 'testenforcer33.interceptors.SecurityInterceptor', INFO, ['STDOUT'], false
 
-root(ERROR, ['STDOUT'])
+root(WARN, ['STDOUT'])
