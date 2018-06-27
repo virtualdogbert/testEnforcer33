@@ -36,7 +36,7 @@ spring {
 }
 
 endpoints {
-    enabled = false
+    enabled = true
     jmx {
         enabled = true
     }
