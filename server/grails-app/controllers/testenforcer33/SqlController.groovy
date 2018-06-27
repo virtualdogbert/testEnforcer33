@@ -45,6 +45,14 @@ class SqlController implements PluginManagerAware {
             e.printStackTrace()
         }
 
+
+        try {
+            String query = "from Sprocket where id = $id"
+            println Sprocket.findAll(query)
+        } catch (Exception e) {
+            e.printStackTrace()
+        }
+
         try {
             println Sprocket.executeQuery("from Sprocket where id = $id")
         } catch (Exception e) {
