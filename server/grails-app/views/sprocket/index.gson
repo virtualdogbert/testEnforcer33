@@ -8,5 +8,6 @@ json{
     sprockets(results) { Sprocket sprocket->
         id  sprocket.id
         material sprocket.material
+        manufacturer sprocket.manufacturer
     }
 }
