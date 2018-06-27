@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+plugins {
+  id "com.gorylenko.gradle-git-properties" version "1.5.1"
+}
+
 version '0.1'
 group 'testenforcer33'
 
@@ -89,4 +93,12 @@ bootRun {
     systemProperty 'server.ssl.key-store', './localkeystore'
     systemProperty 'server.ssl.key-store-password', 'secure'
     systemProperty 'server.ssl.key-password', 'secure'
+}
+
+
+// Customize Git properties plugin.
+gitProperties {
+    // Change date format in git.properties file.
+    dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+    dateFormatTimeZone = 'EST'
 }

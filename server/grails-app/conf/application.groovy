@@ -190,6 +190,15 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/role/**', access: ['ROLE_ADMIN']],
         [pattern: '/securityInfo/**', access: ['ROLE_ADMIN']],
         [pattern: '/registrationCode/**', access: ['ROLE_ADMIN']]
+        [pattern: '/auditevents/**', access: ['ROLE_ADMIN']],
+        [pattern: '/beans/**', access: ['ROLE_ADMIN']],
+        [pattern: '/configprops/**', access: ['ROLE_ADMIN']],
+        [pattern: '/env/**', access: ['ROLE_ADMIN']], //issue
+        [pattern: '/health/**', access: ['ROLE_ADMIN']],
+        [pattern: '/info/**', access: ['ROLE_ADMIN']],
+        [pattern: '/loggers/**', access: ['ROLE_ADMIN']],
+        [pattern: '/metrics/**', access: ['ROLE_ADMIN']],
+        [pattern: '/mappings/**', access: ['ROLE_ADMIN']]
 
 ]
 
