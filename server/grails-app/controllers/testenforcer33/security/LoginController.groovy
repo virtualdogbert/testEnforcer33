@@ -1,4 +1,4 @@
-package testenforcer33
+package testenforcer33.interceptors
 
 import mfa.StepOneUserDetailsProviderService
 import com.security.mfa.MfaAuthenticationFilter

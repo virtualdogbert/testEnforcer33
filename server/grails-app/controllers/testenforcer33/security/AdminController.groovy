@@ -1,4 +1,4 @@
-package testenforcer33
+package testenforcer33.security
 
 import grails.plugin.springsecurity.annotation.Secured
 
