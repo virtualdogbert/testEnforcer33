@@ -54,6 +54,7 @@ dependencies {
     compile 'org.grails.plugins:spring-security-core:3.2.1'
     compile 'org.grails.plugins:enforcer:2.0.0'
     compile 'org.grails.plugins:spring-security-ui:3.1.2'
+    compile 'org.grails.plugins:command:4.0.0'
 
 
     console 'org.grails:grails-console'
