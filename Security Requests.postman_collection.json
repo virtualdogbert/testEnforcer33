@@ -1,0 +1,483 @@
+{
+	"info": {
+		"_postman_id": "6bc438e4-1b58-4eea-80c1-aa52fe02e47c",
+		"name": "Security Requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/html?html=<b>this is safe</b><script>alert(\"no it's not\");</script>",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"html"
+					],
+					"query": [
+						{
+							"key": "html",
+							"value": "<b>this is safe</b><script>alert(\"no it's not\");</script>"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection sanitized",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/html/save?html=<b>this is safe</b><script>alert(\"no it's not\");</script>",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"html",
+						"save"
+					],
+					"query": [
+						{
+							"key": "html",
+							"value": "<b>this is safe</b><script>alert(\"no it's not\");</script>"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection check 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/html/check?html=<b>this is safe</b><script>alert(\"no it's not\");</script>",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"html",
+						"check"
+					],
+					"query": [
+						{
+							"key": "html",
+							"value": "<b>this is safe</b><script>alert(\"no it's not\");</script>"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection check 1 Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://localhost:8443/html/update?html=<b>this is safe</b><script>alert(\"no it's not\");</script>",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"html",
+						"update"
+					],
+					"query": [
+						{
+							"key": "html",
+							"value": "<b>this is safe</b><script>alert(\"no it's not\");</script>"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection html enforce",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "htmlText",
+							"value": "<b>this is safe</b><script>alert('no it is not');</script>",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/html",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"html"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "xss injection html enforce safe",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "htmlText",
+							"value": "<b>this is safe</b>",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/html",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"html"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Command Plugin constaints tests fail",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "testNotMatches",
+							"value": "auto",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testBlackListOR",
+							"value": "initial",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testBlackListAnd",
+							"value": "auto",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testWhiteListOR",
+							"value": "sdfgdsfg",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testWhiteListAnd",
+							"value": "sdfgdsfg",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/constraints",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"constraints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Command plugin constaints test pass",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "testNotMatches",
+							"value": "asdf",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testBlackListOR",
+							"value": "sdfg",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testBlackListAnd",
+							"value": "sdfgdsfg",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testWhiteListOR",
+							"value": "auto",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "testWhiteListAnd",
+							"value": "initial",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/constraints",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"constraints"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON test",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"company\" :{\n\t\t\"name\":\"Transitional data services\",\n\t\t\"description\": \"Datacenter Migration software.\",\n\t\t\"tags\":[\"tag1\",\"tag2\",\"tag3\"],\n\t\t\"divisions\":[\n\t\t\t{\"name\":\"east\", \"departmentCodes\":{\"engineering\":1, \"sales\":5}},\n\t\t\t{\"name\": \"west\", \"departmentCodes\":{\"saless\":2, \"marketing\":2}}\n\t\t ],\n\t\t \"employees\":[\n\t\t\t{\"name\":\"John\", \"address\":\"Some where...\"},\n\t\t\t{\"name\":\"Jim\", \"address\":\"Any where...\"},\n\t\t\t{\"name\":\"Tucker\", \"address\":\"The midle of no where...\"},\n\t\t\t{\"name\":\"j\", \"address\":\"Some where...\"}\n\t\t \t\n\t\t ]\n\t\t \n\t}\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/company",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"company"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "JSON test pass",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"company\" :{\n\t\t\"name\":\"Transitional data services\",\n\t\t\"description\": \"Datacenter Migration software.\",\n\t\t\"tags\":[\"tag1\",\"tag2\",\"tag3\"],\n\t\t\"divisions\":[\n\t\t\t{\"name\":\"east\", \"departmentCodes\":{\"engineering\":1, \"sales\":2}},\n\t\t\t{\"name\": \"west\", \"departmentCodes\":{\"sales\":2, \"marketing\":2}}\n\t\t ],\n\t\t \"employees\":[\n\t\t\t{\"name\":\"John\", \"address\":\"Some where...\"},\n\t\t\t{\"name\":\"Jim\", \"address\":\"Any where...\"},\n\t\t\t{\"name\":\"Tucker\", \"address\":\"The midle of no where...\"}\n\t\t \t\n\t\t ]\n\t\t \n\t}\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/command/company",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"command",
+						"company"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rest login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"me\",\n\t\"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rest validate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJwcmluY2lwYWwiOiJINHNJQUFBQUFBQUFBSlZTTVdcL1RRQmo5bktacW9hSzBTQ0F4bElXeUlVZUNNVk1hVWdReUNVcmlwVWlnaVwvM1ZYSHUrYytcL09iYktnVERCMEtBSXFJYkV5OXBcL0F3ZzlBTUxCMlp1VTdwNmtEUzhWTjFydm45OTczdlRzNWhYbWo0WDZpR1JmR3owU2VjT21iVEhPWkdJeHl6ZTNJenczcUdHM0JlRmdRUTBKZ2Nyd0tlQUZVZUd6aFdyREQ5bGxOTUpuVU9vTWRqR3g5cU9HZTBzbVo0clptS1I0b3ZldWZhMGRLNDE4R3BiVDN1UUlMVzdES29ramwwcmFWYkEwenJqSGVncFVTQzFTMDY2RHJFZDJndEp3Sk0wdGRRTWtHQXVNQWxsaHVYeXB5NVdnc1hKMkV6UzBYdFI3YWVnQ0xHVE9HMHYwelNjKzY2TzdleFpRMHdSNjhndW93OCtqUTd1NDRxdTkwXC9LWVNncWJtU3ByMVVLWXE1dHZjbVpQK2VPM2R0Nk5QNDdBQ1FEdTVlXC9FXC9KWDV6QThaZm52KytWU3phaXl6Y21JbGUwdXJEak5Lc2xzcDlqYzc1Kzhlbjc0OVAzenliSTJmSDJQelwvUHRZYlo1c2JOVldhTWMyc211bUlaQStxOUQxSDRoc1hpMDliR1BrOW5tWUM2VVZKaVwvRzVSU2xNNDFhMUV0TjlXN2pTN1FTdEY0MW1QMnowTzEzajhHVUxseWZvZ3llUDJsUG9VZ0dGdlZiWFwvVlpKa2FJdEY1dHhsZnFCb2tJUGY3MzllblQ3QjlrOGh2bDlKbktrWWxaS1VqdFBCNmhmbnh5dkxYMzRlVmlNT1gzeWZ3RHpYbW9iTmdNQUFBPT0iLCJzdWIiOiJtZSIsInJvbGVzIjpbIlJPTEVfQUNUVUFUT1IiLCJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlzcyI6IlNwcmluZyBTZWN1cml0eSBSRVNUIEdyYWlscyBQbHVnaW4iLCJleHAiOjE1MzA5OTAwNjgsImlhdCI6MTUzMDk4NjQ2OH0.sA4U3ucf0hLD134no7r0AGr29vqsqq_hi5OyaeCuFy4"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"me\",\n\t\"password\":\"password\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/validate",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rest logout???",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJwcmluY2lwYWwiOiJINHNJQUFBQUFBQUFBSlZTTVdcL1RRQmo5bktacW9hSzBTQ0F4bElXeUlVZUNNVk1hVWdReUNVcmlwVWlnaVwvM1ZYSHUrYytcL09iYktnVERCMEtBSXFJYkV5OXBcL0F3ZzlBTUxCMlp1VTdwNmtEUzhWTjFydm45OTczdlRzNWhYbWo0WDZpR1JmR3owU2VjT21iVEhPWkdJeHl6ZTNJenczcUdHM0JlRmdRUTBKZ2Nyd0tlQUZVZUd6aFdyREQ5bGxOTUpuVU9vTWRqR3g5cU9HZTBzbVo0clptS1I0b3ZldWZhMGRLNDE4R3BiVDN1UUlMVzdES29ramwwcmFWYkEwenJqSGVncFVTQzFTMDY2RHJFZDJndEp3Sk0wdGRRTWtHQXVNQWxsaHVYeXB5NVdnc1hKMkV6UzBYdFI3YWVnQ0xHVE9HMHYwelNjKzY2TzdleFpRMHdSNjhndW93OCtqUTd1NDRxdTkwXC9LWVNncWJtU3ByMVVLWXE1dHZjbVpQK2VPM2R0Nk5QNDdBQ1FEdTVlXC9FXC9KWDV6QThaZm52KytWU3phaXl6Y21JbGUwdXJEak5Lc2xzcDlqYzc1Kzhlbjc0OVAzenliSTJmSDJQelwvUHRZYlo1c2JOVldhTWMyc211bUlaQStxOUQxSDRoc1hpMDliR1BrOW5tWUM2VVZKaVwvRzVSU2xNNDFhMUV0TjlXN2pTN1FTdEY0MW1QMnowTzEzajhHVUxseWZvZ3llUDJsUG9VZ0dGdlZiWFwvVlpKa2FJdEY1dHhsZnFCb2tJUGY3MzllblQ3QjlrOGh2bDlKbktrWWxaS1VqdFBCNmhmbnh5dkxYMzRlVmlNT1gzeWZ3RHpYbW9iTmdNQUFBPT0iLCJzdWIiOiJtZSIsInJvbGVzIjpbIlJPTEVfQUNUVUFUT1IiLCJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImlzcyI6IlNwcmluZyBTZWN1cml0eSBSRVNUIEdyYWlscyBQbHVnaW4iLCJleHAiOjE1MzA5OTAwNjgsImlhdCI6MTUzMDk4NjQ2OH0.sA4U3ucf0hLD134no7r0AGr29vqsqq_hi5OyaeCuFy4"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/logout",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
