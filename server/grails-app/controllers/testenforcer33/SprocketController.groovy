@@ -51,6 +51,11 @@ class SprocketController {
         [results : Sprocket.list()]
     }
 
+    def update(){
+        Sprocket sprocket = enforcerTestTSService.createSprocket()
+        errorsHandler([enforcerTestTSService.updateSprocketFailure(sprocket)])
+    }
+
     def data(){
         Sprocket sprocket = sprocketService.getSprocket(1)
         println sprocket.manufacturer

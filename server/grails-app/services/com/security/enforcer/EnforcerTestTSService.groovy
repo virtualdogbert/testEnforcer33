@@ -38,7 +38,7 @@ class EnforcerTestTSService {
                 creator: springSecurityService.currentUser
         )
 
-        sprocket.save()
+        sprocket.save() ?: sprocket
     }
 
 
@@ -55,13 +55,19 @@ class EnforcerTestTSService {
     @EnforceT({ isCreator(sprocket) })
     Sprocket updateSprocket(Sprocket sprocket) {
         sprocket.material = 'plastic'
-        sprocket.save()
+        sprocket.save() ?: sprocket
+    }
+
+    @EnforceT({ isCreator(sprocket) })
+    Sprocket updateSprocketFailure(Sprocket sprocket) {
+        sprocket.material = null
+        sprocket.save() ?: sprocket
     }
 
     @EnforceTS({ isCreator(sprocket) })
     Sprocket updateSprocketCompileStatic(Sprocket sprocket) {
         sprocket.material = 'plastic'
-        (Sprocket)sprocket.save()
+        (Sprocket)sprocket.save() ?: (Sprocket)sprocket
     }
 
     @EnforceT({ isCreator(sprocket) })
