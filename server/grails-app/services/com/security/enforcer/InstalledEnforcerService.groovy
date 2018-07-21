@@ -27,7 +27,7 @@ import grails.util.Environment
  * The EnforcerService has one enforce method for enforcing business rules, and is extended by the traits it implements.
  */
 @Transactional
-class InstalledEnforcerService extends EnforcerService implements RoleTrait,DomainRoleTrait{
+class InstalledEnforcerService extends EnforcerService implements RoleTrait,DomainRoleTrait, CreatorTrait{
 
     GrailsApplication     grailsApplication
     SpringSecurityService springSecurityService
