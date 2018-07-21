@@ -26,9 +26,6 @@ import com.security.User
  * This trait is for the EnforcerService, extending it's capability to enforcing domain roles, without the verbosity of calling a service.
  */
 trait CreatorTrait {
-    def springSecurityService
-
-
 
     /**
          * This method checks the domain object to see if it has a reference to a user(passed in or defaulted to springSecurityService.currentUser)
